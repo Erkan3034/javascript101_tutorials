@@ -198,5 +198,3 @@ function rastgeleSayi(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 console.log("1-100 arası rastgele:", rastgeleSayi(1, 100));
-
-console.log("\n=== NUMBER VERİ TİPİ TAMAMLANDI ===");
