@@ -8,7 +8,7 @@
 
 // console.log ile Merhaba Dunya:
 console.log("Merhaba Dunya")
-
+/*
 let title = document.getElementById("title");
 let time = 5;
 for (let i = 1; i <= time; i++) {
@@ -28,3 +28,5 @@ for (let i = 1; i <= time; i++) {
     }
 
 }
+
+*/
