@@ -12,7 +12,7 @@ console.log("Merhaba Dunya")
 let title = document.getElementById("title");
 let time = 5;
 for (let i = 1; i <= time; i++) {
-    console.log(i + ". Merhaba Dunya");
+    console.log(i + ". Merhaba Dunya"); //for console logs
     function changeTitle() {
         title.innerHTML = i + ". Merhaba Dunya";    
         title.style.color = "blue";
