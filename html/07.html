@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+
+        p {
+            margin: 0;
+        }
+
+
+        button {
+            display: block;
+            /* Butonu blok seviyesine getir(varsayılan olarak inline-block olarak görünür) */
+            margin: 10px auto;
+            /* Üstten 10px, sağdan ve soldan otomatik boşluk bırakarak ortalar */
+
+            /* Mevcut stilleriniz */
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Prompt İle Kullanıcıdan Veri Alma</h1>
+
+
+    <table>
+        <tr>
+            <td>Adınız</td>
+            <td>
+                <p name="" id="ad" placeholder=""></p>
+            </td>
+        </tr>
+        <tr>
+            <td>Yaşınız</td>
+            <td>
+                <p name="" id="yas" placeholder=""></p>
+            </td>
+        </tr>
+        <tr>
+            <td>Doğum Tarihiniz</td>
+            <td>
+                <p name="" id="dogumTarihi" placeholder=""></p>
+            </td>
+        </tr>
+        <tr>
+            <td>Mesleğiniz</td>
+            <td>
+                <p name="" id="meslek" placeholder=""></p>
+            </td>
+        </tr>
+    </table>
+    <button onclick="kisiselBilgiAl()">Kisisel Bilgi Al</button>
+    <button onclick="temizle()">Temizle</button>
+
+
+
+    <script>
+        function kisiselBilgiAl() {
+            const bilgiler = [
+                { id: "ad", mesaj: "Adınızı girin:" },
+                { id: "yas", mesaj: "Yaşınızı girin:" },
+                { id: "dogumTarihi", mesaj: "Doğum Tarihinizi girin:" },
+                { id: "meslek", mesaj: "Mesleğinizi girin:" }
+            ];
+
+            bilgiler.forEach(bilgi => { //bilgileri döngü ile geçeriz
+                const deger = prompt(bilgi.mesaj) || "";
+                document.getElementById(bilgi.id).textContent = deger; 
+            });
+        }
+
+        function temizle() {
+            const bilgiler = [
+                { id: "ad"},
+                { id: "yas"},
+                { id: "dogumTarihi"},
+                { id: "meslek" }    
+            ];
+            bilgiler.forEach(bilgi => {
+                document.getElementById(bilgi.id).textContent = "";
+            });
+        }
+
+
+    </script>
+    <!-- 
+    <script src="../JS/07-prompt-ile-kullanıcıdan-veri-almak.js"></script>
+     -->
+</body>
+
+</html>
