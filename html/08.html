@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Class Ekleme ve Çıkarma</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        /* Test elementleri için stiller */
+        #test {
+            padding: 20px;
+            margin: 10px 0;
+            background-color: #e9ecef;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        #test.active {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        
+        #test.highlight {
+            background-color: #fff3cd;
+            border-color: #ffeaa7;
+            color: #856404;
+            transform: scale(1.05);
+        }
+        
+        #test.selected {
+            background-color: #cce5ff;
+            border-color: #80bdff;
+            color: #004085;
+            box-shadow: 0 0 10px rgba(0,123,255,0.3);
+        }
+        
+        /* Buton stilleri */
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .btn.active {
+            background-color: #28a745;
+        }
+        
+        .btn.loading {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        /* Kart stilleri */
+        .card {
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        .card:hover {
+            border-color: #007bff;
+            transform: translateY(-2px);
+        }
+        
+        .card.selected {
+            border-color: #28a745;
+            background-color: #d4edda;
+            box-shadow: 0 4px 8px rgba(40,167,69,0.2);
+        }
+        
+        .card.animate {
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Menü stilleri */
+        #menu {
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            display: none;
+            transition-duration: 0.3s;
+        }
+        
+        #menu.open {
+            display: block;
+            max-height: 200px;
+        }
+        
+        /* Dark mode stilleri */
+        body.dark-mode {
+            background-color: #212529;
+            color: #ffffff;
+        }
+        
+        body.dark-mode .container {
+            background-color: #343a40;
+        }
+        
+        body.dark-mode .section {
+            border-color: #495057;
+        }
+        
+        /* Hover effect */
+        .hover-effect {
+            background-color: #e3f2fd !important;
+            border-color: #2196f3 !important;
+            transform: rotate(2deg);
+        }
+        
+        /* Input stilleri */
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        input.has-value {
+            border-color: #28a745;
+            background-color: #f8fff8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CSS Class Ekleme ve Çıkarma Örnekleri</h1>
+        
+        <!-- Test Elementi -->
+        <div class="section">
+            <h3>Test Elementi</h3>
+            <div id="test">Bu bir test elementidir. Class'lar eklendikçe stil değişecek.</div>
+            <button class="btn" onclick="document.getElementById('test').classList.toggle('active')">
+                Active Class Toggle
+            </button>
+            <button class="btn" onclick="document.getElementById('test').classList.toggle('highlight')">
+                Highlight Class Toggle
+            </button>
+            <button class="btn" onclick="document.getElementById('test').classList.toggle('selected')">
+                Selected Class Toggle
+            </button>
+        </div>
+        
+        <!-- Buton Örnekleri -->
+        <div class="section">
+            <h3>Buton Örnekleri</h3>
+            <button id="myButton" class="btn" onclick="toggleButton()">Toggle Button</button>
+            <button id="loadBtn" class="btn" onclick="simulateLoading()">Yükle</button>
+            <button id="toggleBtn" class="btn">Toggle Highlight</button>
+            <div id="target" style="margin-top: 10px; padding: 10px; border: 1px solid #ddd;">
+                Bu element highlight olacak
+            </div>
+        </div>
+        
+        <!-- Menü Örneği -->
+        <div class="section">
+            <h3>Menü Açma/Kapama</h3>
+            <button class="btn" onclick="toggleMenu()">Menüyü Aç/Kapat</button>
+            <div id="menu">
+                <p>Bu bir gizli menüdür.</p>
+                <ul>
+                    <li>Menü öğesi 1</li>
+                    <li>Menü öğesi 2</li>
+                    <li>Menü öğesi 3</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Dark Mode -->
+        <div class="section">
+            <h3>Dark Mode</h3>
+            <button class="btn" onclick="toggleDarkMode()">Dark Mode Toggle</button>
+        </div>
+        
+        <!-- Kart Seçimi -->
+        <div class="section">
+            <h3>Kart Seçimi</h3>
+            <div class="card" id="card1" onclick="selectCard('card1')">
+                <h4>Kart 1</h4>
+                <p>Bu kartı seçmek için tıklayın</p>
+            </div>
+            <div class="card" id="card2" onclick="selectCard('card2')">
+                <h4>Kart 2</h4>
+                <p>Bu kartı seçmek için tıklayın</p>
+            </div>
+            <div class="card" id="card3" onclick="selectCard('card3')">
+                <h4>Kart 3</h4>
+                <p>Bu kartı seçmek için tıklayın</p>
+            </div>
+        </div>
+        
+        <!-- Hover Efekti -->
+        <div class="section">
+            <h3>Hover Efekti</h3>
+            <div id="hoverMe" style="padding: 20px; border: 2px solid #ddd; text-align: center; cursor: pointer;">
+                Üzerime gelin - hover efekti göreceksiniz
+            </div>
+        </div>
+        
+        <!-- Input Örneği -->
+        <div class="section">
+            <h3>Input Kontrolü</h3>
+            <input type="text" placeholder="Bir şey yazın..." onkeyup="checkInput(this)">
+            <input type="email" placeholder="Email girin..." onkeyup="checkInput(this)">
+        </div>
+        
+        <!-- Class Kontrolü -->
+        <div class="section">
+            <h3>Class Kontrolü</h3>
+            <button class="btn" onclick="checkClasses()">Test Elementinin Class'larını Kontrol Et</button>
+            <div id="classInfo" style="margin-top: 10px; padding: 10px; background-color: #f8f9fa; border-radius: 5px;"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript dosyasını bağla -->
+    <script src="../JS/08-css-class-eklemek-veya-cikarmak.js"></script>
+    
+    <!-- Ek JavaScript fonksiyonları -->
+    <script>
+        // Loading simülasyonu
+        function simulateLoading() {
+            showLoading();
+            setTimeout(() => {
+                hideLoading();
+            }, 3000);
+        }
+        
+        // Input kontrolü
+        function checkInput(input) {
+            if (input.value.length > 0) {
+                input.classList.add("has-value");
+            } else {
+                input.classList.remove("has-value");
+            }
+        }
+        
+        // Class kontrolü
+        function checkClasses() {
+            let testElement = document.getElementById("test");
+            let classInfo = document.getElementById("classInfo");
+            
+            let classes = Array.from(testElement.classList);
+            let info = `
+                <strong>Test Elementinin Class'ları:</strong><br>
+                ${classes.length > 0 ? classes.join(", ") : "Hiç class yok"}<br>
+                <strong>Toplam class sayısı:</strong> ${classes.length}<br>
+                <strong>Active class var mı:</strong> ${testElement.classList.contains("active")}<br>
+                <strong>Highlight class var mı:</strong> ${testElement.classList.contains("highlight")}<br>
+                <strong>Selected class var mı:</strong> ${testElement.classList.contains("selected")}
+            `;
+            
+            classInfo.innerHTML = info;
+        }
+        
+        // Sayfa yüklendiğinde
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("CSS Class örnekleri yüklendi!");
+            
+            // Animasyonlu kartlar ekle
+            setTimeout(() => {
+                let cards = document.querySelectorAll(".card");
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add("animate");
+                    }, index * 200);
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
