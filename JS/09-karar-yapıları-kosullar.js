@@ -302,7 +302,7 @@ console.log("Ayar:", aktifAyar); // normal
 // 13. ÖNEMLİ NOTLAR
 // =====================================================
 
-// ✓ == yerine === kullan (tip kontrolü için)
+// ✓ == yerine === kullan (tip kontrolü için) hem tip hem de değer kontrolü yapar
 // ✓ Koşulları parantez içinde grupla
 // ✓ Karmaşık koşulları değişkenlere ata
 // ✓ Switch-case'de break kullanmayı unutma
