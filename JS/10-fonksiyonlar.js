@@ -1,5 +1,5 @@
 
-// FONKSİYONLAR KONUSU - TEMEL KAVRAMLAR
+// FONKSİYONLAR TEMEL KAVRAMLAR
 
 // 1. BASIT FONKSİYON TANIMLAMA
 function merhaba() {
@@ -81,6 +81,103 @@ function anaFonksiyon() {
     icFonksiyon(); // İç fonksiyonu çağır
 }
 
+// 11. ARROW FUNCTION (OK FONKSİYONU) - MODERN JAVASCRIPT
+// Geleneksel fonksiyon yazımı:
+function gelenekselTopla(a, b) {
+    return a + b;
+}
+
+// Arrow function ile aynı işlem:
+const arrowTopla = (a, b) => {
+    return a + b;
+}
+
+// Tek satır arrow function (return otomatik):
+const tekSatirTopla = (a, b) => a + b;
+
+// Tek parametre arrow function (parantez opsiyonel):
+const kareAl = x => x * x;
+
+// Parametresiz arrow function:
+const selamVer = () => {
+    console.log("Merhaba Arrow Function!");
+}
+
+// 12. ARROW FUNCTION ÖRNEKLERİ
+
+// DOM ile çalışan arrow function:
+const sayfaDegistirArrow = () => {
+    let yazdir = document.getElementById("yazdir");
+    yazdir.style.color = "green";
+    yazdir.style.fontSize = "24px";
+    yazdir.innerHTML = "Arrow Function çalıştı!";
+}
+
+// Parametreli arrow function:
+const kisiSelamla = (isim) => {
+    return "Merhaba " + isim + "!";
+}
+
+// Çoklu parametre arrow function:
+const hesapYap = (sayi1, sayi2, islem) => {
+    if (islem === "topla") {
+        return sayi1 + sayi2;
+    } else if (islem === "cikar") {
+        return sayi1 - sayi2;
+    } else if (islem === "carp") {
+        return sayi1 * sayi2;
+    } else if (islem === "bol") {
+        return sayi1 / sayi2;
+    }
+}
+
+// Dizi işlemleri ile arrow function:
+const sayilariTopla = (dizi) => {
+    let toplam = 0;
+    dizi.forEach(sayi => toplam += sayi);
+    return toplam;
+}
+
+// Koşullu arrow function:
+const yasKontroluArrow = (yas) => {
+    return yas >= 18 ? "Yetişkin" : "Çocuk";
+}
+
+// 13. ARROW FUNCTION VS NORMAL FUNCTION FARKLARI
+
+// Normal function:
+function normalFonksiyon() {
+    console.log("Normal function:", this);
+}
+
+// Arrow function:
+const arrowFonksiyon = () => {
+    console.log("Arrow function:", this);
+}
+
+// 14. ARROW FUNCTION KULLANIM ALANLARI
+
+// Array metodları ile:
+const sayilar = [1, 2, 3, 4, 5];
+
+// map() ile arrow function:
+const kareler = sayilar.map(sayi => sayi * sayi);
+
+// filter() ile arrow function:
+const ciftSayilar = sayilar.filter(sayi => sayi % 2 === 0);
+
+// reduce() ile arrow function:
+const toplam = sayilar.reduce((toplam, sayi) => toplam + sayi, 0);
+
+// forEach() ile arrow function:
+sayilar.forEach(sayi => console.log("Sayı:", sayi));
+
+// 15. EVENT HANDLER OLARAK ARROW FUNCTION
+const butonTikla = () => {
+    alert("Buton tıklandı!");
+    console.log("Arrow function event handler çalıştı");
+}
+
 // FONKSİYON ÇAĞIRMA ÖRNEKLERİ
 // merhaba(); // Parametresiz fonksiyon
 // selamla("Ahmet"); // Tek parametreli fonksiyon
@@ -89,5 +186,18 @@ function anaFonksiyon() {
 // console.log(sonuc);
 // let durum = yasKontrolu(20); // Koşullu fonksiyon
 // console.log(durum);
+
+// ARROW FUNCTION ÇAĞIRMA ÖRNEKLERİ
+// console.log(arrowTopla(10, 5)); // Arrow function
+// console.log(tekSatirTopla(7, 3)); // Tek satır arrow function
+// console.log(kareAl(4)); // Tek parametre arrow function
+// selamVer(); // Parametresiz arrow function
+// console.log(kisiSelamla("Zeynep")); // Parametreli arrow function
+// console.log(hesapYap(10, 2, "bol")); // Çoklu parametre arrow function
+// console.log(sayilariTopla([1, 2, 3, 4, 5])); // Dizi ile arrow function
+// console.log(yasKontroluArrow(25)); // Koşullu arrow function
+// console.log("Kareler:", kareler); // Array map sonucu
+// console.log("Çift sayılar:", ciftSayilar); // Array filter sonucu
+// console.log("Toplam:", toplam); // Array reduce sonucu
 
 
