@@ -69,6 +69,7 @@ function kisiBilgisiYazdir(kisi) {
     console.log("Soyad: " + kisi.soyad);
     console.log("Yaş: " + kisi.yas);
     console.log("Şehir: " + kisi.sehir);    
+    
 }
 
 // 10. İÇ İÇE FONKSİYON
@@ -201,5 +202,5 @@ console.log("Kareler:", kareler); // Array map sonucu
 console.log("Çift sayılar:", ciftSayilar); // Array filter sonucu
 console.log("Toplam:", toplam); // Array reduce sonucu
 let kisi = {ad: "Ahmet", soyad: "Yılmaz", yas: 25, sehir: "İstanbul"};
-console.log("Kişi Bilgisi: ",kisiBilgisiYazdir(kisi)); // Objeye göre fonksiyon çağırma
-
+kisiBilgisiYazdir(kisi); // Objeye göre fonksiyon çağırma
+kisiBilgisiYazdir(kisi); // Objeye göre fonksiyon çağırma
