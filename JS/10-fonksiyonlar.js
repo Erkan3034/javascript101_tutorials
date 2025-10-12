@@ -81,7 +81,8 @@ function anaFonksiyon() {
     icFonksiyon(); // İç fonksiyonu çağır
 }
 
-// FONKSİYON ÇAĞIRMA ÖRNEKLERİ
+// FONKSİYON ÇAĞIRMA örnekler
+
 // merhaba(); // Parametresiz fonksiyon
 // selamla("Ahmet"); // Tek parametreli fonksiyon
 // kisiBilgisi("Mehmet", 25, "İstanbul"); // Çoklu parametreli fonksiyon
