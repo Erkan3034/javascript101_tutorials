@@ -68,6 +68,7 @@ function kisiBilgisiYazdir(kisi) {
     console.log("Ad: " + kisi.ad);
     console.log("Soyad: " + kisi.soyad);
     console.log("Yaş: " + kisi.yas);
+    console.log("Şehir: " + kisi.sehir);    
 }
 
 // 10. İÇ İÇE FONKSİYON
@@ -181,23 +182,23 @@ const butonTikla = () => {
 // FONKSİYON ÇAĞIRMA ÖRNEKLERİ
 // merhaba(); // Parametresiz fonksiyon
 // selamla("Ahmet"); // Tek parametreli fonksiyon
-// kisiBilgisi("Mehmet", 25, "İstanbul"); // Çoklu parametreli fonksiyon
+ kisiBilgisi("Mehmet", 25, "İstanbul"); // Çoklu parametreli fonksiyon
 // let sonuc = topla(5, 3); // Değer döndüren fonksiyon
 // console.log(sonuc);
 // let durum = yasKontrolu(20); // Koşullu fonksiyon
 // console.log(durum);
 
 // ARROW FUNCTION ÇAĞIRMA ÖRNEKLERİ
-// console.log(arrowTopla(10, 5)); // Arrow function
-// console.log(tekSatirTopla(7, 3)); // Tek satır arrow function
-// console.log(kareAl(4)); // Tek parametre arrow function
-// selamVer(); // Parametresiz arrow function
-// console.log(kisiSelamla("Zeynep")); // Parametreli arrow function
-// console.log(hesapYap(10, 2, "bol")); // Çoklu parametre arrow function
-// console.log(sayilariTopla([1, 2, 3, 4, 5])); // Dizi ile arrow function
-// console.log(yasKontroluArrow(25)); // Koşullu arrow function
-// console.log("Kareler:", kareler); // Array map sonucu
-// console.log("Çift sayılar:", ciftSayilar); // Array filter sonucu
-// console.log("Toplam:", toplam); // Array reduce sonucu
+ console.log("Toplama: ",arrowTopla(10, 5)); // Arrow function
+ console.log("Tek satır Toplama: ",tekSatirTopla(7, 3)); // Tek satır arrow function
+ console.log("Kare: ",kareAl(4)); // Tek parametre arrow function
+selamVer(); // Parametresiz arrow function
+console.log("Selam: ",kisiSelamla("Zeynep")); // Parametreli arrow function
+console.log("Hesap: ",hesapYap(10, 2, "bol")); // Çoklu parametre arrow function
+console.log("Toplam: ",sayilariTopla([1, 2, 3, 4, 5])); // Dizi ile arrow function
+console.log("Yaş Kontrolu: ",yasKontroluArrow(25)); // Koşullu arrow function
+console.log("Kareler:", kareler); // Array map sonucu
+console.log("Çift sayılar:", ciftSayilar); // Array filter sonucu
+console.log("Toplam:", toplam); // Array reduce sonucu
 
 
