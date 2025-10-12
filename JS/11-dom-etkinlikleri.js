@@ -401,7 +401,7 @@ document.addEventListener("DOMContentLoaded", function() {
     draggableItem.style.left = "50px";
     draggableItem.style.top = "50px";
     
-    console.log("🎉 Tüm DOM etkinlikleri başarıyla yüklendi!");
+    console.log("Tüm DOM etkinlikleri başarıyla yüklendi!");
 });
 
 // ETKİNLİK TİPLERİ ÖZET:
