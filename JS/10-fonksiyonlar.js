@@ -38,7 +38,7 @@ function sayfaDegistir() {
     yazdir.style.color = "red";
     yazdir.style.fontSize = "20px";
     yazdir.style.fontWeight = "bold";
-    yazdir.innerHTML = "Sayfa değiştirildi!";
+    yazdir.innerHTML = "Sayfa değiştirildi...";
 }
 
 // 7. ÇOKLU İŞLEM YAPAN FONKSİYON
