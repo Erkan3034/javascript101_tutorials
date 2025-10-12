@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Etkinlikleri</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #007bff;
+            margin-top: 30px;
+        }
+        
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        .input-group {
+            margin: 15px 0;
+        }
+        
+        input, textarea, select {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .result {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+        }
+        
+        .color-box {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #333;
+            margin: 10px;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .draggable {
+            width: 80px;
+            height: 80px;
+            background-color: #ff6b6b;
+            border-radius: 50%;
+            position: absolute;
+            cursor: move;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        #mouse-area {
+            width: 300px;
+            height: 200px;
+            border: 2px dashed #007bff;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+        }
+        
+        .key-display {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+            min-width: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DOM Etkinlikleri (Events) - JavaScript</h1>
+        
+        <h2>1. Tıklama Etkinlikleri (Click Events)</h2>
+        <button onclick="tiklaFonksiyon()">Tıkla Bana!</button>
+        <button id="btn-2">addEventListener ile Tıkla</button>
+        <button id="btn-3">Çift Tıklama</button>
+        <div id="click-result" class="result">Tıklama sonucu burada görünecek...</div>
+        
+        <h2>2. Klavye Etkinlikleri (Keyboard Events)</h2>
+        <input type="text" id="keyboard-input" placeholder="Buraya yazın ve klavye olaylarını görün">
+        <div id="keyboard-result" class="result">Klavye olayları burada görünecek...</div>
+        
+        <h2>3. Fare Etkinlikleri (Mouse Events)</h2>
+        <div id="mouse-area">Fareyi buraya getirin ve hareket ettirin</div>
+        <div id="mouse-result" class="result">Fare olayları burada görünecek...</div>
+        
+        <h2>4. Form Etkinlikleri (Form Events)</h2>
+        <form id="test-form">
+            <div class="input-group">
+                <input type="text" id="name-input" placeholder="Adınızı girin">
+            </div>
+            <div class="input-group">
+                <input type="email" id="email-input" placeholder="E-posta adresinizi girin">
+            </div>
+            <div class="input-group">
+                <select id="city-select">
+                    <option value="">Şehir seçin</option>
+                    <option value="istanbul">İstanbul</option>
+                    <option value="ankara">Ankara</option>
+                    <option value="izmir">İzmir</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <textarea id="message-text" placeholder="Mesajınızı yazın"></textarea>
+            </div>
+            <button type="submit">Gönder</button>
+            <button type="button" onclick="formTemizle()">Temizle</button>
+        </form>
+        <div id="form-result" class="result">Form olayları burada görünecek...</div>
+        
+        <h2>5. Görsel Etkinlikler (Visual Events)</h2>
+        <div class="color-box" id="color-box-1"></div>
+        <div class="color-box" id="color-box-2"></div>
+        <div class="color-box" id="color-box-3"></div>
+        <button onclick="renkDegistir()">Rastgele Renk</button>
+        <div id="visual-result" class="result">Görsel olaylar burada görünecek...</div>
+        
+        <h2>6. Sürükleme Etkinlikleri (Drag & Drop)</h2>
+        <div class="draggable" id="draggable-item">Sürükle</div>
+        <div id="drag-result" class="result">Sürükleme olayları burada görünecek...</div>
+        
+        <h2>7. Sayfa Etkinlikleri (Page Events)</h2>
+        <button onclick="sayfaBilgisi()">Sayfa Bilgilerini Göster</button>
+        <div id="page-result" class="result">Sayfa olayları burada görünecek...</div>
+        
+        <h2>8. Özel Etkinlikler (Custom Events)</h2>
+        <button id="custom-trigger">Özel Etkinlik Tetikle</button>
+        <div id="custom-result" class="result">Özel olaylar burada görünecek...</div>
+    </div>
+
+    <script src="../JS/11-dom-etkinlikleri.js"></script>
+</body>
+</html>
