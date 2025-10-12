@@ -182,7 +182,7 @@ const butonTikla = () => {
 // FONKSİYON ÇAĞIRMA ÖRNEKLERİ
 // merhaba(); // Parametresiz fonksiyon
 // selamla("Ahmet"); // Tek parametreli fonksiyon
- kisiBilgisi("Mehmet", 25, "İstanbul"); // Çoklu parametreli fonksiyon
+// kisiBilgisi("Mehmet", 25, "İstanbul"); // Çoklu parametreli fonksiyon
 // let sonuc = topla(5, 3); // Değer döndüren fonksiyon
 // console.log(sonuc);
 // let durum = yasKontrolu(20); // Koşullu fonksiyon
@@ -200,5 +200,6 @@ console.log("Yaş Kontrolu: ",yasKontroluArrow(25)); // Koşullu arrow function
 console.log("Kareler:", kareler); // Array map sonucu
 console.log("Çift sayılar:", ciftSayilar); // Array filter sonucu
 console.log("Toplam:", toplam); // Array reduce sonucu
-
+let kisi = {ad: "Ahmet", soyad: "Yılmaz", yas: 25, sehir: "İstanbul"};
+console.log("Kişi Bilgisi: ",kisiBilgisiYazdir(kisi)); // Objeye göre fonksiyon çağırma
 
