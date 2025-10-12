@@ -56,7 +56,7 @@ function tamStilUygula() {
     yazdir.innerHTML = "Stil uygulandı!";
 }
 
-// 8. DİZİ İLE ÇALIŞAN FONKSİYON
+// 8. DİZİ İLE ÇALIŞAN FONKSİYON örnek dizi yazdirma
 function diziYazdir(dizi) {
     for (let i = 0; i < dizi.length; i++) {
         console.log(dizi[i]);
@@ -81,8 +81,7 @@ function anaFonksiyon() {
     icFonksiyon(); // İç fonksiyonu çağır
 }
 
-// FONKSİYON ÇAĞIRMA örnekler
-
+// FONKSİYON ÇAĞIRMA ÖRNEKLERİ
 // merhaba(); // Parametresiz fonksiyon
 // selamla("Ahmet"); // Tek parametreli fonksiyon
 // kisiBilgisi("Mehmet", 25, "İstanbul"); // Çoklu parametreli fonksiyon
