@@ -89,7 +89,7 @@ function selectCard(cardId) {
 // Örnek 5 - Loading durumu
 function showLoading() {
     let button = document.getElementById("loadBtn");
-    button.classList.add("loading");
+    button.classList.add("loading"); 
     button.textContent = "Yükleniyor...";
 }
 
