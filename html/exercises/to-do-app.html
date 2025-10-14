@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yapilacaklar Listesi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            background-image: url('https://www.toptal.com/designers/subtlepatterns/patterns/geometry2.png');
+            background-color: #2575fc;
+            padding: 30px;
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        #myInput {
+            width: 75%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        #myInput:focus {
+            outline: none;
+            border-color: #2575fc;
+        }
+
+        .btn-add {
+            width: 23%;
+            padding: 12px;
+            background: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .btn-add:hover {
+            background: #1a5fd6;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul li {
+            cursor: pointer;
+            position: relative;
+            padding: 12px 40px 12px 15px;
+            background: #f8f9fa;
+            font-size: 16px;
+            transition: 0.2s;
+            list-style-type: none;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            border-left: 4px solid #2575fc;
+        }
+
+        ul li:hover {
+            background: #e9ecef;
+        }
+
+        ul li.checked {
+            background: #d4edda;
+            color: #155724;
+            text-decoration: line-through;
+            border-left-color: #28a745;
+        }
+
+        .close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 12px 16px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+            transition: 0.3s;
+        }
+
+        .close:hover {
+            background: #c82333;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+
+        .toast {
+            min-width: 250px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Yapilacaklar Listesi</h2>
+            <input type="text" id="myInput" placeholder="Baslik...">
+            <button onclick="newElement()" class="btn-add">Ekle</button>
+        </div>
+
+        <ul id="myUL">
+            <li>Hit the gym</li>
+            <li class="checked">Pay bills</li>
+            <li>Meet George</li>
+            <li>Buy eggs</li>
+            <li>Read a book</li>
+            <li>Organize office</li>
+        </ul>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto" id="toastTitle">Baslik</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="toastMessage">
+                Mesaj
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sayfa yuklendiginde yapilacaklar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFromLocalStorage();
+            addEventListenersToExisting();
+        });
+
+        // Mevcut elemanlara event listener ekle
+        function addEventListenersToExisting() {
+            const list = document.getElementById('myUL');
+            const items = list.getElementsByTagName('li');
+            
+            for (let i = 0; i < items.length; i++) {
+                // Yapildi isaretlemek icin
+                items[i].onclick = function() {
+                    this.classList.toggle('checked');
+                    saveToLocalStorage();
+                };
+                
+                // Silme butonu ekle
+                if (!items[i].querySelector('.close')) {
+                    const span = document.createElement('SPAN');
+                    const txt = document.createTextNode('\u00D7');
+                    span.className = 'close';
+                    span.appendChild(txt);
+                    items[i].appendChild(span);
+                    
+                    span.onclick = function(e) {
+                        e.stopPropagation();
+                        const li = this.parentElement;
+                        li.style.display = 'none';
+                        setTimeout(() => {
+                            li.remove();
+                            saveToLocalStorage();
+                        }, 300);
+                    };
+                }
+            }
+        }
+
+        // Yeni element ekleme
+        function newElement() {
+            const inputValue = document.getElementById('myInput').value.trim();
+            
+            if (inputValue === '') {
+                showToast('Hata!', 'Listeye bos oge ekleyemezsiniz!', 'danger');
+                return;
+            }
+            
+            const li = document.createElement('li');
+            li.textContent = inputValue;
+            document.getElementById('myUL').appendChild(li);
+            document.getElementById('myInput').value = '';
+            
+            // Silme butonu ekle
+            const span = document.createElement('SPAN');
+            const txt = document.createTextNode('\u00D7');
+            span.className = 'close';
+            span.appendChild(txt);
+            li.appendChild(span);
+            
+            // Silme fonksiyonu
+            span.onclick = function(e) {
+                e.stopPropagation();
+                const li = this.parentElement;
+                li.style.display = 'none';
+                setTimeout(() => {
+                    li.remove();
+                    saveToLocalStorage();
+                }, 300);
+            };
+            
+            // Yapildi isaretleme fonksiyonu
+            li.onclick = function() {
+                this.classList.toggle('checked');
+                saveToLocalStorage();
+            };
+            
+            showToast('Basarili!', 'Listeye eklendi!', 'success');
+            saveToLocalStorage();
+        }
+
+        // Toast bildirimi goster
+        function showToast(title, message, type) {
+            const toastElement = document.getElementById('liveToast');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastMessage = document.getElementById('toastMessage');
+            const toastHeader = toastElement.querySelector('.toast-header');
+            
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+            
+            toastHeader.classList.remove('bg-success', 'bg-danger', 'text-white');
+            if (type === 'success') {
+                toastHeader.classList.add('bg-success', 'text-white');
+            } else if (type === 'danger') {
+                toastHeader.classList.add('bg-danger', 'text-white');
+            }
+            
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+        }
+
+        // Local Storage'a kaydet
+        function saveToLocalStorage() {
+            const list = document.getElementById('myUL');
+            const items = list.getElementsByTagName('li');
+            const todos = [];
+            
+            for (let i = 0; i < items.length; i++) {
+                const text = items[i].childNodes[0].textContent;
+                const checked = items[i].classList.contains('checked');
+                todos.push({ text: text, checked: checked });
+            }
+            
+            localStorage.setItem('todos', JSON.stringify(todos));
+        }
+
+        // Local Storage'dan yukle
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('todos');
+            if (saved) {
+                const todos = JSON.parse(saved);
+                const list = document.getElementById('myUL');
+                list.innerHTML = '';
+                
+                todos.forEach(todo => {
+                    const li = document.createElement('li');
+                    li.textContent = todo.text;
+                    if (todo.checked) {
+                        li.classList.add('checked');
+                    }
+                    list.appendChild(li);
+                    
+                    const span = document.createElement('SPAN');
+                    const txt = document.createTextNode('\u00D7');
+                    span.className = 'close';
+                    span.appendChild(txt);
+                    li.appendChild(span);
+                    
+                    span.onclick = function(e) {
+                        e.stopPropagation();
+                        const li = this.parentElement;
+                        li.style.display = 'none';
+                        setTimeout(() => {
+                            li.remove();
+                            saveToLocalStorage();
+                        }, 300);
+                    };
+                    
+                    li.onclick = function() {
+                        this.classList.toggle('checked');
+                        saveToLocalStorage();
+                    };
+                });
+            }
+        }
+
+        // Enter tusuna basildiginda ekle
+        document.getElementById('myInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                newElement();
+            }
+        });
+    </script>
+</body>
+</html>
