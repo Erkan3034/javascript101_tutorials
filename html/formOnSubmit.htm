@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script type="text/javascript" src="scripts.js">
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+</style>
+
+<body>
+
+  <form action="/learn/action_page.php" onsubmit="return sampleFunction()">
+    <input type="text" placeholder="Name" id="fname" size="15" name="fname"><br>
+    <input type="text" placeholder="Age" id="age" size="3" name="age"><br>
+    <input type="text" placeholder="E-mail" id="email" size="25" name="mail"><br><br><input type="submit"
+      value="Submit">
+  </form>
+
+  <script>
+    function sampleFunction() {
+      var fnameInput = document.getElementById("fname");
+      var ageInput = document.getElementById("age");
+      var emailInput = document.getElementById("email");
+      var fname = fnameInput.value.trim();
+      var age = ageInput.value.trim();
+      var email = emailInput.value.trim();
+      var errorMsg = "";
+
+      if (fname.length > 10) {
+        errorMsg += "The name may have no more than 10 characters.\n";
+      }
+
+      if (isNaN(age) || age < 1 || age > 100) {
+        errorMsg += "The age must be a number between 1 and 100.\n";
+      }
+
+      if (email.indexOf("@") === -1) {
+        errorMsg += "Not a valid e-mail!\n";
+      }
+
+      if (errorMsg !== "") {
+        alert("Form is not valid:\n" + errorMsg);
+        return false;
+      }
+      // If no error, allow the form to submit.
+      return true;
+    }
+    
+  </script>
+
+</body>
+
+</html>
