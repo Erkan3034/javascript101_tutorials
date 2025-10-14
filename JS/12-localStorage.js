@@ -677,7 +677,6 @@ console.log("Boolean okuma:", guvenliVeriOku('uyeMi', 'boolean'));
 console.log("Array okuma:", guvenliVeriOku('sehirler', 'array'));
 console.log("Object okuma:", guvenliVeriOku('kullanici', 'object'));
 
-console.log("\n=== FARKLI VERİ TİPLERİ BÖLÜMÜ TAMAMLANDI ===");
 
 /*=============================================================================
                             ÖZET VE İPUÇLARI
