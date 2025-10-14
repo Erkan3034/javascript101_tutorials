@@ -113,8 +113,8 @@ const guncelKullaniciBilgileri = {
     meslek: 'Yazılım Geliştirici' // Yeni alan eklendi
 };
 
-localStorage.setItem('kullaniciBilgileri', JSON.stringify(guncelKullaniciBilgileri));
-console.log("Güncellenen obje veri:", JSON.parse(localStorage.getItem('kullaniciBilgileri')));
+localStorage.setItem('kullaniciBilgileri', JSON.stringify(guncelKullaniciBilgileri)); //ekle
+console.log("Güncellenen obje veri:", JSON.parse(localStorage.getItem('kullaniciBilgileri'))); //
 
 // Array veri güncelleme
 const guncelFavoriRenkler = ['mavi', 'yeşil', 'kırmızı', 'sarı', 'mor', 'turuncu'];
@@ -378,10 +378,308 @@ const bugun = new Date();
 const birYilOnce = new Date(bugun.getFullYear() - 1, bugun.getMonth(), bugun.getDate());
 eskiVerileriTemizle(birYilOnce);
 
-console.log("\n=== LOCALSTORAGE TUTORIAL TAMAMLANDI ===");
 
-/*
-=============================================================================
+
+/*===========================================================================
+LocalStorage içerisine Farklı Türde Veriler Eklemek
+===========================================================================*/
+
+console.log("\n--- FARKLI TÜRDE VERİLER EKLEME ---");
+
+// =============================================================================
+// 1. STRING VERİLER
+// =============================================================================
+
+console.log("\n1. STRING VERİLER:");
+// String veriler direkt olarak saklanabilir
+localStorage.setItem('isim', 'Ahmet Yılmaz');
+localStorage.setItem('sehir', 'İstanbul');
+localStorage.setItem('telefon', '0555-123-4567');
+
+const okunanIsim = localStorage.getItem('isim');
+const okunanSehir = localStorage.getItem('sehir');
+console.log("String veriler:", { okunanIsim, okunanSehir });
+
+// =============================================================================
+// 2. NUMBER VERİLER
+// =============================================================================
+
+console.log("\n2. NUMBER VERİLER:");
+// Number veriler string olarak saklanır, okurken parse etmek gerekir
+localStorage.setItem('yas', '25');
+localStorage.setItem('maas', '50000');
+localStorage.setItem('indirimOrani', '0.15');
+
+// String'den number'a çevirme
+const yass = parseInt(localStorage.getItem('yass'));
+const maas = parseInt(localStorage.getItem('maas'));
+const indirimOrani = parseFloat(localStorage.getItem('indirimOrani'));
+
+console.log("Number veriler:", { yas, maas, indirimOrani });
+console.log("Yas tipi:", typeof yas); // number
+
+// =============================================================================
+// 3. BOOLEAN VERİLER
+// =============================================================================
+
+console.log("\n3. BOOLEAN VERİLER:");
+// Boolean veriler string olarak saklanır
+localStorage.setItem('uyeMi', 'true');
+localStorage.setItem('bildirimler', 'false');
+localStorage.setItem('darkMode', 'true');
+
+// String'den boolean'a çevirme
+const uyeMi = localStorage.getItem('uyeMi') === 'true';
+const bildirimler2 = localStorage.getItem('bildirimler2') === 'true';
+const darkMode2 = localStorage.getItem('darkMode2') === 'true';
+
+console.log("Boolean veriler:", { uyeMi, bildirimler, darkMode });
+console.log("UyeMi tipi:", typeof uyeMi); // boolean
+
+// =============================================================================
+// 4. ARRAY (DİZİ) VERİLER
+// =============================================================================
+
+console.log("\n4. ARRAY VERİLER:");
+// Array'lar JSON.stringify ile saklanır
+const sehirler = ['İstanbul', 'Ankara', 'İzmir', 'Bursa'];
+const sayilar = [1, 2, 3, 4, 5];
+const karisikArray = ['metin', 123, true, null, { ad: 'test' }];
+
+localStorage.setItem('sehirler', JSON.stringify(sehirler)); //array olarak depolama
+localStorage.setItem('sayilar', JSON.stringify(sayilar));
+localStorage.setItem('karisikArray', JSON.stringify(karisikArray));
+
+// JSON.parse ile okuma
+const okunanSehirler = JSON.parse(localStorage.getItem('sehirler'));
+const okunanSayilar = JSON.parse(localStorage.getItem('sayilar'));
+const okunanKarisikArray = JSON.parse(localStorage.getItem('karisikArray'));
+
+console.log("Array veriler:", { okunanSehirler, okunanSayilar, okunanKarisikArray });
+console.log("Sehirler tipi:", Array.isArray(okunanSehirler)); // true
+
+// =============================================================================
+// 5. OBJECT (NESNE) VERİLER
+// =============================================================================
+
+console.log("\n5. OBJECT VERİLER:");
+// Object'ler JSON.stringify ile saklanır
+const kullanici = {
+    id: 1,
+    ad: 'Mehmet',
+    soyad: 'Kaya',
+    yas: 30,
+    aktif: true,
+    adres: {
+        sehir: 'İstanbul',
+        ilce: 'Kadıköy',
+        postaKodu: '34710'
+    },
+    hobiler: ['kitap', 'müzik', 'spor']
+};
+
+const urun = {
+    id: 101,
+    ad: 'Laptop',
+    fiyat: 15000,
+    stok: 5,
+    ozellikler: {
+        marka: 'Dell',
+        model: 'XPS 13',
+        islemci: 'Intel i7'
+    }
+};
+
+localStorage.setItem('kullanici', JSON.stringify(kullanici));
+localStorage.setItem('urun', JSON.stringify(urun));
+
+// JSON.parse ile okuma
+const okunanKullanici = JSON.parse(localStorage.getItem('kullanici'));
+const okunanUrun = JSON.parse(localStorage.getItem('urun'));
+
+console.log("Object veriler:", { okunanKullanici, okunanUrun });
+console.log("Kullanici tipi:", typeof okunanKullanici); // object
+
+// =============================================================================
+// 6. NULL VE UNDEFINED VERİLER
+// =============================================================================
+
+console.log("\n6. NULL VE UNDEFINED VERİLER:");
+// Null değerler string olarak saklanır
+localStorage.setItem('bosDeger', 'null');
+localStorage.setItem('tanimsizDeger', 'undefined');
+
+// Okurken kontrol etmek gerekir
+const bosDeger = localStorage.getItem('bosDeger');
+const tanimsizDeger = localStorage.getItem('tanimsizDeger');
+const olmayanDeger = localStorage.getItem('olmayanDeger'); // null döner
+
+console.log("Null/Undefined veriler:", { bosDeger, tanimsizDeger, olmayanDeger });
+
+// =============================================================================
+// 7. FONKSİYON VE COMPLEX TİPLER
+// =============================================================================
+
+console.log("\n7. FONKSİYON VE COMPLEX TİPLER:");
+// Fonksiyonlar JSON.stringify ile kaybolur, string olarak saklamak gerekir
+const toplamaFonksiyonu = function(a, b) { return a + b; };
+
+// Fonksiyonu string olarak sakla
+localStorage.setItem('fonksiyon', toplamaFonksiyonu.toString());
+
+// Okurken eval ile çalıştırabilirsin (güvenlik riski var!)
+const okunanFonksiyon = eval('(' + localStorage.getItem('fonksiyon') + ')');
+console.log("Fonksiyon testi:", okunanFonksiyon(5, 3)); // 8
+
+// Date objesi örneği
+const bugun2 = new Date();
+localStorage.setItem('bugun', bugun.toISOString());
+
+// Okurken Date objesi oluştur
+const okunanTarih = new Date(localStorage.getItem('bugun2'));
+console.log("Tarih verisi:", okunanTarih);
+
+// =============================================================================
+// 8. KARIŞIK VERİ TİPLERİ İÇEREN COMPLEX OBJECT
+// =============================================================================
+
+console.log("\n8. COMPLEX OBJECT ÖRNEĞİ:");
+const kompleksVeri = {
+    // String
+    ad: 'Ali Veli',
+    
+    // Number
+    yas: 25,
+    maas: 75000.50,
+    
+    // Boolean
+    aktif: true,
+    evliMi: false,
+    
+    // Array
+    diller: ['Türkçe', 'İngilizce', 'Almanca'],
+    skorlar: [95, 87, 92, 88],
+    
+    // Nested Object
+    adres: {
+        sehir: 'Ankara',
+        ilce: 'Çankaya',
+        sokak: 'Atatürk Bulvarı',
+        no: 123,
+        kat: 5,
+        daire: 'A'
+    },
+    
+    // Array of Objects
+    deneyimler: [
+        { sirket: 'ABC Ltd.', pozisyon: 'Developer', yil: 2020 },
+        { sirket: 'XYZ Corp.', pozisyon: 'Senior Dev', yil: 2022 }
+    ],
+    
+    // Date
+    dogumTarihi: new Date('1998-05-15'),
+    
+    // Null ve undefined
+    telefon: null,
+    notlar: undefined,
+    
+    // Function (string olarak)
+    hesapla: function(yil) { return 2024 - yil; }.toString()
+};
+
+localStorage.setItem('kompleksVeri', JSON.stringify(kompleksVeri)); //object olarak depolama
+
+// Okuma
+const okunanKompleksVeri = JSON.parse(localStorage.getItem('kompleksVeri'));
+
+// Date'i tekrar Date objesi yap
+okunanKompleksVeri.dogumTarihi = new Date(okunanKompleksVeri.dogumTarihi);
+
+console.log("Kompleks veri:", okunanKompleksVeri);
+console.log("Dogum tarihi tipi:", typeof okunanKompleksVeri.dogumTarihi);
+
+// =============================================================================
+// 9. VERİ TİPİ KONTROL FONKSİYONLARI
+// =============================================================================
+
+console.log("\n9. VERİ TİPİ KONTROL FONKSİYONLARI:");
+
+// Veri tipini kontrol eden fonksiyon
+function veriTipiniKontrolEt(key) {
+    const veri = localStorage.getItem(key);
+    if (veri === null) return 'null';
+    
+    // JSON parse etmeye çalış
+    try {
+        const parsedVeri = JSON.parse(veri);
+        return typeof parsedVeri;
+    } catch {
+        // JSON değilse string olarak kontrol et
+        if (veri === 'true' || veri === 'false') return 'boolean';
+        if (!isNaN(veri) && !isNaN(parseFloat(veri))) return 'number';
+        return 'string';
+    }
+}
+
+// Test et
+console.log("isim tipi:", veriTipiniKontrolEt('isim')); // string
+console.log("yas tipi:", veriTipiniKontrolEt('yas')); // number
+console.log("uyeMi tipi:", veriTipiniKontrolEt('uyeMi')); // boolean
+console.log("sehirler tipi:", veriTipiniKontrolEt('sehirler')); // object (array)
+console.log("kullanici tipi:", veriTipiniKontrolEt('kullanici')); // object
+
+// =============================================================================
+// 10. GÜVENLİ VERİ TİPİ DÖNÜŞÜMLERİ
+// =============================================================================
+
+console.log("\n10. GÜVENLİ VERİ TİPİ DÖNÜŞÜMLERİ:");
+
+// Güvenli veri okuma fonksiyonu
+function guvenliVeriOku(key, beklenenTip = 'string') {
+    const veri = localStorage.getItem(key);
+    if (veri === null) return null;
+    
+    switch (beklenenTip) {
+        case 'string':
+            return veri;
+            
+        case 'number':
+            const num = parseFloat(veri);
+            return isNaN(num) ? null : num;
+            
+        case 'boolean':
+            return veri === 'true';
+            
+        case 'array':
+            try {
+                const parsed = JSON.parse(veri);
+                return Array.isArray(parsed) ? parsed : null;
+            } catch {
+                return null;
+            }
+            
+        case 'object':
+            try {
+                return JSON.parse(veri);
+            } catch {
+                return null;
+            }
+            
+        default:
+            return veri;
+    }
+}
+
+// Test et
+console.log("String okuma:", guvenliVeriOku('isim', 'string'));
+console.log("Number okuma:", guvenliVeriOku('yas', 'number'));
+console.log("Boolean okuma:", guvenliVeriOku('uyeMi', 'boolean'));
+console.log("Array okuma:", guvenliVeriOku('sehirler', 'array'));
+console.log("Object okuma:", guvenliVeriOku('kullanici', 'object'));
+
+console.log("\n=== FARKLI VERİ TİPLERİ BÖLÜMÜ TAMAMLANDI ===");
+
+/*=============================================================================
                             ÖZET VE İPUÇLARI
 =============================================================================
 
@@ -413,4 +711,14 @@ console.log("\n=== LOCALSTORAGE TUTORIAL TAMAMLANDI ===");
 - Tema ayarları
 - Oyun skorları
 - Geçici cache verileri
+
+🎯 VERİ TİPİ ÖZETİ:
+- String: Direkt saklanır
+- Number: String olarak saklanır, parseInt/parseFloat ile okunur
+- Boolean: 'true'/'false' string olarak saklanır, === 'true' ile okunur
+- Array: JSON.stringify ile saklanır, JSON.parse ile okunur
+- Object: JSON.stringify ile saklanır, JSON.parse ile okunur
+- Date: toISOString() ile saklanır, new Date() ile okunur
+- Function: toString() ile saklanır, eval() ile okunur (riskli!)
+- Null/Undefined: String olarak saklanır, kontrol edilerek okunur
 */
