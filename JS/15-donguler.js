@@ -224,6 +224,8 @@ pahaliUrunler.forEach((urun) => {
 
 // =============================================================================
 // 6. MAP İLE ARRAY İÇERİSİNDEKİ YAPININ DEĞİŞTİRİLEREK YENİ LİSTE OLUŞTURULMASI
+
+//her ögeye belirlenene işlemi uygula
 // =============================================================================
 
 console.log("\n--- 6. MAP İLE ARRAY DÖNÜŞTÜRME ---");
@@ -255,7 +257,7 @@ const yasArtirilmis = ogrenciListesi.map((ogrenci) => ({
 }));
 console.log("Yaşları artırılmış:", yasArtirilmis);
 
-// Yeni format oluştur
+// Yeni format oluştur map ile
 const formatlanmisOgrenciler = ogrenciListesi.map((ogrenci) => 
     `${ogrenci.ad} (${ogrenci.yas} yaşında)`
 );
