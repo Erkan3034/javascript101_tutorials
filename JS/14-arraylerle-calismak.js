@@ -619,4 +619,5 @@ console.log("Binary search (6):", binarySearch(siraliDizi, 6));
 - splice() - Belirli pozisyona ekle/çıkar
 - slice() - Kopyala/parçala
 - concat() - Birleştir
-- join() - String'e çevir
+- join() - String'e çevir 
+*/
