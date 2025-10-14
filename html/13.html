@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form ve Form Yönetimi - JavaScript Tutorial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            font-size: 1.8em;
+        }
+
+        .section h3 {
+            color: #34495e;
+            margin: 20px 0 15px 0;
+            font-size: 1.3em;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Button Styling */
+        .btn {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        }
+
+        /* Output Area */
+        .output {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            min-height: 100px;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        .output h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #34495e;
+            padding-bottom: 5px;
+        }
+
+        /* Checkbox and Radio Styling */
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-item input[type="checkbox"],
+        .radio-item input[type="radio"] {
+            width: auto;
+            margin: 0;
+        }
+
+        /* File Input Styling */
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 12px;
+            background: #f8f9fa;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-input-label:hover {
+            border-color: #3498db;
+            background: #e3f2fd;
+        }
+
+        /* Range Input Styling */
+        .range-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .range-value {
+            background: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* Color Input Styling */
+        .color-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+
+        /* Exercise Section */
+        .exercise {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .exercise h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .exercise-instructions {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .checkbox-group,
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container fade-in">
+        <div class="header">
+            <h1>📝 Form ve Form Yönetimi</h1>
+            <p>JavaScript ile Form İşlemleri ve Input Yönetimi</p>
+        </div>
+
+        <div class="content">
+            <!-- 1. Form ve Form Submit Yönetimi -->
+            <div class="section">
+                <h2>1. Form ve Form Submit Yönetimi</h2>
+                
+                <h3>Basit Form Örneği</h3>
+                <form id="basitForm" class="form-group">
+                    <div class="form-group">
+                        <label for="ad">Ad:</label>
+                        <input type="text" id="ad" name="ad" placeholder="Adınızı girin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mesaj">Mesaj:</label>
+                        <textarea id="mesaj" name="mesaj" rows="4" placeholder="Mesajınızı yazın" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Gönder</button>
+                    <button type="reset" class="btn btn-warning">Temizle</button>
+                </form>
+
+                <div id="formSonuc" class="output">
+                    <h4>Form Sonuçları:</h4>
+                    Form henüz gönderilmedi.
+                </div>
+            </div>
+
+            <!-- 2. Input içerisinden Değer Almak -->
+            <div class="section">
+                <h2>2. Input içerisinden Değer Almak</h2>
+                
+                <h3>Farklı Input Türleri</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="metin">Metin:</label>
+                        <input type="text" id="metin" value="Örnek metin">
+                    </div>
+                    <div class="form-group">
+                        <label for="sayi">Sayı:</label>
+                        <input type="number" id="sayi" value="42">
+                    </div>
+                    <div class="form-group">
+                        <label for="tarih">Tarih:</label>
+                        <input type="date" id="tarih" value="2024-01-01">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="zaman">Zaman:</label>
+                        <input type="time" id="zaman" value="14:30">
+                    </div>
+                    <div class="form-group">
+                        <label for="renk">Renk:</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="renk" value="#3498db">
+                            <div id="renkPreview" class="color-preview"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="aralik">Aralık (0-100):</label>
+                        <div class="range-group">
+                            <input type="range" id="aralik" min="0" max="100" value="50">
+                            <span id="aralikDegeri" class="range-value">50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Checkbox ve Radio Button'lar</h3>
+                <div class="form-group">
+                    <label>Hobileriniz:</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="hobi1" name="hobiler" value="kitap">
+                            <label for="hobi1">Kitap Okuma</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="hobi2" name="hobiler" value="spor">
+                            <label for="hobi2">Spor</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="hobi3" name="hobiler" value="muzik">
+                            <label for="hobi3">Müzik</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="hobi4" name="hobiler" value="seyahat">
+                            <label for="hobi4">Seyahat</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Cinsiyet:</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="erkek" name="cinsiyet" value="erkek">
+                            <label for="erkek">Erkek</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="kadin" name="cinsiyet" value="kadin">
+                            <label for="kadin">Kadın</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="belirtmek_istemiyorum" name="cinsiyet" value="belirtmek_istemiyorum">
+                            <label for="belirtmek_istemiyorum">Belirtmek İstemiyorum</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sehir">Şehir:</label>
+                    <select id="sehir" name="sehir">
+                        <option value="">Şehir seçin</option>
+                        <option value="istanbul">İstanbul</option>
+                        <option value="ankara">Ankara</option>
+                        <option value="izmir">İzmir</option>
+                        <option value="bursa">Bursa</option>
+                        <option value="antalya">Antalya</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="dosya">Dosya Seç:</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="dosya" name="dosya" class="file-input" multiple accept=".jpg,.png,.pdf">
+                        <label for="dosya" class="file-input-label">
+                            📁 Dosya seçmek için tıklayın
+                        </label>
+                    </div>
+                </div>
+
+                <button onclick="inputDegerleriniAl()" class="btn">Input Değerlerini Al</button>
+                <button onclick="inputDegerleriniTemizle()" class="btn btn-warning">Temizle</button>
+
+                <div id="inputSonuc" class="output">
+                    <h4>Input Değerleri:</h4>
+                    Henüz değerler alınmadı.
+                </div>
+            </div>
+
+            <!-- 3. Formlarla Çalışmak - Bölüm Sonu Egzersizi -->
+            <div class="section">
+                <h2>3. Formlarla Çalışmak - Bölüm Sonu Egzersizi</h2>
+                
+                <div class="exercise">
+                    <h3>🎯 Egzersiz: Kullanıcı Kayıt Formu</h3>
+                    <div class="exercise-instructions">
+                        <p><strong>Görev:</strong> Aşağıdaki formu tamamlayın ve JavaScript ile yönetin.</p>
+                        <ul>
+                            <li>Form validasyonu yapın</li>
+                            <li>Form gönderildiğinde verileri işleyin</li>
+                            <li>LocalStorage'a kaydedin</li>
+                            <li>Form temizleme özelliği ekleyin</li>
+                        </ul>
+                    </div>
+
+                    <form id="kayitFormu" class="form-group">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="kayitAd">Ad:</label>
+                                <input type="text" id="kayitAd" name="kayitAd" placeholder="Adınız" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="kayitSoyad">Soyad:</label>
+                                <input type="text" id="kayitSoyad" name="kayitSoyad" placeholder="Soyadınız" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="kayitEmail">Email:</label>
+                                <input type="email" id="kayitEmail" name="kayitEmail" placeholder="email@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="kayitTelefon">Telefon:</label>
+                                <input type="tel" id="kayitTelefon" name="kayitTelefon" placeholder="0555-123-4567" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="kayitYas">Yaş:</label>
+                                <input type="number" id="kayitYas" name="kayitYas" min="18" max="100" placeholder="18" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="kayitSehir">Şehir:</label>
+                                <select id="kayitSehir" name="kayitSehir" required>
+                                    <option value="">Şehir seçin</option>
+                                    <option value="istanbul">İstanbul</option>
+                                    <option value="ankara">Ankara</option>
+                                    <option value="izmir">İzmir</option>
+                                    <option value="bursa">Bursa</option>
+                                    <option value="antalya">Antalya</option>
+                                    <option value="adana">Adana</option>
+                                    <option value="gaziantep">Gaziantep</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Hobileriniz:</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="egzersizHobi1" name="kayitHobiler" value="kitap">
+                                    <label for="egzersizHobi1">Kitap Okuma</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="egzersizHobi2" name="kayitHobiler" value="spor">
+                                    <label for="egzersizHobi2">Spor</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="egzersizHobi3" name="kayitHobiler" value="muzik">
+                                    <label for="egzersizHobi3">Müzik</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="egzersizHobi4" name="kayitHobiler" value="seyahat">
+                                    <label for="egzersizHobi4">Seyahat</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="egzersizHobi5" name="kayitHobiler" value="teknoloji">
+                                    <label for="egzersizHobi5">Teknoloji</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="kayitMesaj">Hakkınızda:</label>
+                            <textarea id="kayitMesaj" name="kayitMesaj" rows="4" placeholder="Kendiniz hakkında kısa bir açıklama yazın" maxlength="500"></textarea>
+                            <small id="karakterSayisi">0/500 karakter</small>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="kvkk" name="kvkk" required>
+                                <label for="kvkk">KVKK metnini okudum ve kabul ediyorum</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Kayıt Ol</button>
+                        <button type="button" onclick="formuTemizle()" class="btn btn-warning">Formu Temizle</button>
+                        <button type="button" onclick="kayitlariGoster()" class="btn">Kayıtları Göster</button>
+                        <button type="button" onclick="kayitlariTemizle()" class="btn btn-danger">Tüm Kayıtları Sil</button>
+                    </form>
+
+                    <div id="egzersizSonuc" class="output">
+                        <h4>Egzersiz Sonuçları:</h4>
+                        Form henüz gönderilmedi.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gelişmiş Örnekler -->
+            <div class="section">
+                <h2>4. Gelişmiş Form Örnekleri</h2>
+                
+                <h3>Dinamik Form Alanları</h3>
+                <form id="dinamikForm">
+                    <div class="form-group">
+                        <label>Eğitim Bilgileri:</label>
+                        <div id="egitimAlanlari">
+                            <div class="egitim-item" style="margin-bottom: 15px; padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Okul Adı:</label>
+                                        <input type="text" name="okulAdi[]" placeholder="Okul adını girin" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Bölüm:</label>
+                                        <input type="text" name="bolum[]" placeholder="Bölüm adını girin" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Başlangıç Yılı:</label>
+                                        <input type="number" name="baslangicYili[]" min="1990" max="2024" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Bitiş Yılı:</label>
+                                        <input type="number" name="bitisYili[]" min="1990" max="2024">
+                                    </div>
+                                </div>
+                                <button type="button" onclick="egitimAlaniSil(this)" class="btn btn-danger" style="margin-top: 10px;">Bu Alanı Sil</button>
+                            </div>
+                        </div>
+                        <button type="button" onclick="egitimAlaniEkle()" class="btn">+ Eğitim Alanı Ekle</button>
+                    </div>
+                    
+                    <button type="button" onclick="dinamikFormuGonder()" class="btn btn-success">Dinamik Formu Gönder</button>
+                </form>
+
+                <div id="dinamikSonuc" class="output">
+                    <h4>Dinamik Form Sonuçları:</h4>
+                    Form henüz gönderilmedi.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../JS/13-formlar.js"></script>
+</body>
+</html>
