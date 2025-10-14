@@ -154,7 +154,7 @@ Bu projeye katkıda bulunmak istiyorsanız:
 - **GitHub Issues**: Hata bildirimi ve öneriler için
 - **Email**: [Mail At](turguterkan55@gmail.com)
 - **LinkedIn**: [Ulaş](https://www.linkedin.com/in/erkanturgut1205/)
-- **Twitter**: [@erkan_0630]
+- **Portfolyo**: [Erkan Turgut](https://erkanturgut.netlify.app)
 
 
 
