@@ -152,8 +152,8 @@ Bu projeye katkıda bulunmak istiyorsanız:
 ## 📞 İletişim ve Destek
 
 - **GitHub Issues**: Hata bildirimi ve öneriler için
-- **Email**: [turguterkan55@gmail.com]
-- **LinkedIn**: [https://www.linkedin.com/in/erkanturgut1205/]
+- **Email**: [Mail At](turguterkan55@gmail.com)
+- **LinkedIn**: [Ulaş](https://www.linkedin.com/in/erkanturgut1205/)
 - **Twitter**: [@erkan_0630]
 
 
