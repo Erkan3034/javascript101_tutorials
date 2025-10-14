@@ -82,6 +82,11 @@ javascript101_tutorials/
 - **12-localStorage.js**: Veri saklama ve yönetimi
 - **13-formlar.js**: Form işlemleri ve validasyon
 
+### 📊 Bölüm 5: Dizi(Array) Veri Tipiyle Çalışmak
+- **14-arraylerle-calismak.js**: Dizi oluşturma ve eleman erişimi
+- **14-arraylerle-calismak.js**: Diziye eleman ekleme, çıkarma ve güncelleme
+- **14-arraylerle-calismak.js**: Array metotları ve iç içe diziler
+
 ##  Öne Çıkan Özellikler
 
 ###  Modern JavaScript

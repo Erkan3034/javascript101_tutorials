@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do Listesi</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 500px;
+      padding: 30px;
+    }
+
+    h1 {
+      color: #667eea;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2em;
+    }
+
+    .input-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    #todoInput {
+      flex: 1;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    #todoInput:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    #addBtn {
+      padding: 12px 25px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #addBtn:hover {
+      background: #5568d3;
+    }
+
+    #todoList {
+      list-style: none;
+    }
+
+    .todo-item {
+      background: #f8f9fa;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s;
+    }
+
+    .todo-item:hover {
+      background: #e9ecef;
+      transform: translateX(5px);
+    }
+
+    .todo-item.completed {
+      opacity: 0.6;
+    }
+
+    .todo-item.completed .todo-text {
+      text-decoration: line-through;
+      color: #6c757d;
+    }
+
+    .todo-checkbox {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .todo-text {
+      flex: 1;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .delete-btn {
+      padding: 6px 12px;
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    .delete-btn:hover {
+      background: #c82333;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: #6c757d;
+      padding: 40px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 Yapılacaklar Listesi</h1>
+    
+    <form id="todoForm" class="input-container">
+      <input 
+        type="text" 
+        id="todoInput" 
+        placeholder="Yeni görev ekle..."
+        required
+      >
+      <button type="submit" id="addBtn">Ekle</button>
+    </form>
+
+    <ul id="todoList"></ul>
+    <div id="emptyState" class="empty-state">
+      Henüz görev eklemediniz. Yukarıdan yeni bir görev ekleyin! 🚀
+    </div>
+  </div>
+
+  <script>
+    const todoForm = document.getElementById('todoForm');
+    const todoInput = document.getElementById('todoInput');
+    const todoList = document.getElementById('todoList');
+    const emptyState = document.getElementById('emptyState');
+
+    let todos = [];
+
+    // event.preventDefault() kullanımı - Form gönderildiğinde sayfa yenilenmesini engelle
+    todoForm.addEventListener('submit', function(e) {
+      e.preventDefault(); // Sayfanın yenilenmesini engelle
+      
+      const todoText = todoInput.value.trim();
+      
+      if (todoText) {
+        addTodo(todoText);
+        todoInput.value = ''; // Input'u temizle
+      }
+    });
+
+    function addTodo(text) {
+      const todo = {
+        id: Date.now(),
+        text: text,
+        completed: false
+      };
+
+      todos.push(todo);
+      renderTodos();
+    }
+
+    function toggleTodo(id) {
+      todos = todos.map(todo => 
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      );
+      renderTodos();
+    }
+
+    function deleteTodo(id) {
+      todos = todos.filter(todo => todo.id !== id);
+      renderTodos();
+    }
+
+    function renderTodos() {
+      todoList.innerHTML = '';
+
+      if (todos.length === 0) {
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+
+      todos.forEach(todo => {
+        const li = document.createElement('li');
+        li.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+        
+        li.innerHTML = `
+          <input 
+            type="checkbox" 
+            class="todo-checkbox" 
+            ${todo.completed ? 'checked' : ''}
+            onchange="toggleTodo(${todo.id})"
+          >
+          <span class="todo-text">${todo.text}</span>
+          <button class="delete-btn" onclick="deleteTodo(${todo.id})">Sil</button>
+        `;
+
+        todoList.appendChild(li);
+      });
+    }
+
+    // İlk yükleme
+    renderTodos();
+  </script>
+</body>
+</html>
