@@ -600,26 +600,18 @@ const siraliDizi = [1, 3, 5, 7, 9, 11, 13, 15];
 console.log("Binary search (7):", binarySearch(siraliDizi, 7));
 console.log("Binary search (6):", binarySearch(siraliDizi, 6));
 
-console.log("\n=== DİZİ(ARRAY) VERİ TİPİYLE ÇALIŞMAK TUTORIAL TAMAMLANDI ===");
 
 /*=============================================================================
                             ÖZET VE İPUÇLARI
 =============================================================================
 
-✅ YAPILMASI GEREKENLER:
-- Dizi oluştururken literal syntax [] kullanın
-- Eleman ekleme/çıkarma için uygun metotları seçin
-- Döngü ile gezme için forEach veya for...of kullanın
-- Arama için find(), filter() metotlarını kullanın
-- Dönüştürme için map(), reduce() metotlarını kullanın
-
-❌ YAPILMAMASI GEREKENLER:
+ YAPILMAMASI GEREKENLER:
 - delete operatörü ile dizi elemanı silme (undefined bırakır)
 - for...in ile dizi gezme (prototype özelliklerini de gezer)
 - Büyük dizilerde forEach yerine for döngüsü kullanmayın
 - Dizi uzunluğunu manuel olarak değiştirmeyin
 
-🔧 FAYDALI METOTLAR:
+ FAYDALI METOTLAR:
 - push() - Sonuna ekle
 - pop() - Sondan çıkar
 - unshift() - Başına ekle
@@ -628,28 +620,3 @@ console.log("\n=== DİZİ(ARRAY) VERİ TİPİYLE ÇALIŞMAK TUTORIAL TAMAMLANDI 
 - slice() - Kopyala/parçala
 - concat() - Birleştir
 - join() - String'e çevir
-
-📝 KULLANIM ALANLARI:
-- Veri listesi yönetimi
-- Matris işlemleri
-- Filtreleme ve arama
-- Veri dönüştürme
-- Alışveriş sepeti
-- Oyun tahtaları
-- Grafik verileri
-
-🎯 PERFORMANS İPUÇLARI:
-- Büyük dizilerde for döngüsü en hızlıdır
-- Küçük dizilerde forEach daha okunabilir
-- Dizi kopyalama için spread operator kullanın
-- Sık kullanılan aramalar için Set kullanın
-- İç içe dizilerde flat() metodu kullanın
-
-🚀 İLERİ SEVİYE ÖZELLİKLER:
-- Array destructuring
-- Spread operator
-- Array.from() ve Array.of()
-- Typed Arrays (Int32Array, Float64Array)
-- Array buffer ve DataView
-- Web Workers ile paralel işleme
-*/
