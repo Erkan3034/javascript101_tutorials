@@ -110,7 +110,7 @@ console.log("hasOwnProperty('yas'):", ogrenci.hasOwnProperty('yas'));
 // 3. NESNELERE NASIL METOT EKLERİZ?
 // =============================================================================
 
-console.log("\n--- 3. NESNELERE METOT EKLEME ---");
+console.log("\n--- 3. NESNELERE METOT EKLEME ---"); 
 
 // Nesneye metot ekleme
 const kullanici = {
@@ -280,7 +280,8 @@ console.log("\nÖrnek 2: Destructuring ile veri işleme");
 const ogrenciListesi = [
     { ad: 'Ahmet', not: 85, sinif: 'A' },
     { ad: 'Mehmet', not: 92, sinif: 'B' },
-    { ad: 'Ayşe', not: 78, sinif: 'A' }
+    { ad: 'Ayşe', not: 78, sinif: 'A' },
+  {ad: 'Erkan' , not:95, sinif:'A'}
 ];
 
 // Her öğrenciyi işle
